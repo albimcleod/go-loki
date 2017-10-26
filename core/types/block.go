@@ -2,9 +2,7 @@
 package types
 
 import (
-	"bytes"
 	"crypto/sha256"
-	"encoding/gob"
 	"fmt"
 	"time"
 )
@@ -33,16 +31,7 @@ func rlpHash(x interface{}) Hash {
 	return sum
 }
 
-func GetBytes(key interface{}) ([]byte, error) {
-	var buf bytes.Buffer
-	enc := gob.NewEncoder(&buf)
-	err := enc.Encode(key)
-	if err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
-}
-
+// NewBlock will create a new Block for the blockchain
 func NewBlock(index int64, ts time.Time, data []byte, ph Hash) *Block {
 	return &Block{
 		Index:        index,
